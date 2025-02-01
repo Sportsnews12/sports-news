@@ -1,59 +1,72 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const addNewsBtn = document.getElementById("addNewsBtn");
+    const submitLogin = document.getElementById("submitLogin");
+    const usernameInput = document.getElementById("username");
+    const submitNews = document.getElementById("submitNews");
+    const newsTitle = document.getElementById("newsTitle");
+    const newsContent = document.getElementById("newsContent");
     const newsContainer = document.getElementById("newsContainer");
-    const newsTicker = document.getElementById("newsTicker");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalContent = document.getElementById("modalContent");
-    const modalImage = document.getElementById("modalImage");
+    const submitComment = document.getElementById("submitComment");
+    const commentInput = document.getElementById("commentInput");
+    const commentList = document.getElementById("commentList");
 
-    // جلب الأخبار من API خارجي
-    async function fetchNews() {
-        try {
-            const response = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://www.espn.com/espn/rss/news");
-            const data = await response.json();
+    let currentUser = null;
+    let comments = [];
 
-            let tickerText = "";
-            newsContainer.innerHTML = "";
-
-            data.items.slice(0, 6).forEach((news, index) => {
-                tickerText += ` 🔥 ${news.title} |`;
-                
-                const newsCard = `
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="${news.enclosure.link || 'images/default.jpg'}" class="card-img-top" alt="خبر">
-                            <div class="card-body">
-                                <h5 class="card-title">${news.title}</h5>
-                                <p class="card-text">${news.description.substring(0, 100)}...</p>
-                                <button class="btn btn-primary read-more" data-index="${index}" data-title="${news.title}" data-content="${news.description}" data-image="${news.enclosure.link}">اقرأ المزيد</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                newsContainer.innerHTML += newsCard;
-            });
-
-            newsTicker.innerHTML = tickerText;
-
-            // ربط زر "اقرأ المزيد" مع النافذة المنبثقة
-            document.querySelectorAll(".read-more").forEach(button => {
-                button.addEventListener("click", function () {
-                    modalTitle.innerText = this.getAttribute("data-title");
-                    modalContent.innerHTML = this.getAttribute("data-content");
-                    modalImage.src = this.getAttribute("data-image") || "images/default.jpg";
-                    new bootstrap.Modal(document.getElementById("newsModal")).show();
-                });
-            });
-
-        } catch (error) {
-            console.error("فشل تحميل الأخبار:", error);
-            newsTicker.innerHTML = "حدث خطأ أثناء تحميل الأخبار.";
+    // تسجيل الدخول
+    submitLogin.addEventListener("click", function () {
+        currentUser = usernameInput.value;
+        if (currentUser) {
+            localStorage.setItem("currentUser", currentUser);
+            loginBtn.classList.add("d-none");
+            logoutBtn.classList.remove("d-none");
+            addNewsBtn.classList.remove("d-none");
+            new bootstrap.Modal(document.getElementById("loginModal")).hide();
         }
+    });
+
+    // تسجيل الخروج
+    logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("currentUser");
+        currentUser = null;
+        loginBtn.classList.remove("d-none");
+        logoutBtn.classList.add("d-none");
+        addNewsBtn.classList.add("d-none");
+    });
+
+    // تحميل بيانات المستخدم عند فتح الصفحة
+    if (localStorage.getItem("currentUser")) {
+        currentUser = localStorage.getItem("currentUser");
+        loginBtn.classList.add("d-none");
+        logoutBtn.classList.remove("d-none");
+        addNewsBtn.classList.remove("d-none");
     }
 
-    fetchNews();
+    // إضافة الأخبار المحلية
+    submitNews.addEventListener("click", function () {
+        if (!currentUser) return alert("يجب تسجيل الدخول أولًا!");
+        const newsHTML = `
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${newsTitle.value}</h5>
+                        <p class="card-text">${newsContent.value}</p>
+                        <p class="text-muted">بقلم: ${currentUser}</p>
+                    </div>
+                </div>
+            </div>`;
+        newsContainer.innerHTML += newsHTML;
+        new bootstrap.Modal(document.getElementById("addNewsModal")).hide();
+    });
 
-    // تفعيل الوضع الليلي
-    document.getElementById("toggleDarkMode").addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
+    // إضافة التعليقات
+    submitComment.addEventListener("click", function () {
+        if (!currentUser) return alert("يجب تسجيل الدخول أولًا!");
+        const commentHTML = `<li class="list-group-item"><strong>${currentUser}:</strong> ${commentInput.value}</li>`;
+        commentList.innerHTML += commentHTML;
+        comments.push({ user: currentUser, text: commentInput.value });
+        commentInput.value = "";
     });
 });
