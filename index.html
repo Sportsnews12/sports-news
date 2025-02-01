@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أخبار الرياضة</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- رأس الصفحة -->
+    <header class="bg-primary text-white text-center p-3">
+        <h1>أخبار الرياضة</h1>
+    </header>
+
+    <!-- شريط الأخبار المتحرك -->
+    <div class="ticker bg-dark text-white p-2">
+        <marquee behavior="scroll" direction="right" id="newsTicker">جاري تحميل الأخبار...</marquee>
+    </div>
+
+    <!-- قسم الأخبار -->
+    <div class="container mt-4">
+        <div class="row" id="newsContainer">
+            <!-- يتم تحميل الأخبار هنا ديناميكيًا -->
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة لعرض تفاصيل الأخبار -->
+    <div class="modal fade" id="newsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" class="img-fluid mb-3" src="" alt="">
+                    <p id="modalContent"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- أزرار التحكم -->
+    <div class="container text-center mt-4">
+        <button id="toggleDarkMode" class="btn btn-secondary">تفعيل الوضع الليلي</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

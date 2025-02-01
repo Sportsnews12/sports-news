@@ -1,0 +1,22 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.ticker {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .card {
+    background-color: #222;
+    color: white;
+}
