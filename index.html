@@ -16,6 +16,31 @@
         <button id="logoutBtn" class="btn btn-danger d-none">تسجيل الخروج</button>
     </header>
 
+    <!-- شريط الأخبار المتحرك -->
+    <div class="ticker bg-dark text-white p-2">
+        <marquee id="newsTicker">جاري تحميل الأخبار...</marquee>
+    </div>
+
+    <!-- قائمة تصفية الأخبار -->
+    <div class="container mt-3">
+        <select id="categoryFilter" class="form-select">
+            <option value="all">جميع الأخبار</option>
+            <option value="football">كرة القدم</option>
+            <option value="basketball">كرة السلة</option>
+            <option value="tennis">التنس</option>
+        </select>
+    </div>
+
+    <!-- زر إضافة الأخبار المحلية -->
+    <div class="container text-center mt-3">
+        <button id="addNewsBtn" class="btn btn-success d-none">إضافة خبر محلي</button>
+    </div>
+
+    <!-- قسم الأخبار -->
+    <div class="container mt-4">
+        <div class="row" id="newsContainer"></div>
+    </div>
+
     <!-- نافذة تسجيل الدخول -->
     <div class="modal fade" id="loginModal" tabindex="-1">
         <div class="modal-dialog">
@@ -30,11 +55,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- زر إضافة الأخبار المحلية -->
-    <div class="container text-center mt-3">
-        <button id="addNewsBtn" class="btn btn-success d-none">إضافة خبر محلي</button>
     </div>
 
     <!-- نافذة إضافة الأخبار المحلية -->
@@ -52,11 +72,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- قسم الأخبار -->
-    <div class="container mt-4">
-        <div class="row" id="newsContainer"></div>
     </div>
 
     <!-- قسم التعليقات -->
