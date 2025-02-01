@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const newsContainer = document.getElementById("newsContainer");
+    const newsTicker = document.getElementById("newsTicker");
+    const categoryFilter = document.getElementById("categoryFilter");
     const loginBtn = document.getElementById("loginBtn");
     const logoutBtn = document.getElementById("logoutBtn");
     const addNewsBtn = document.getElementById("addNewsBtn");
@@ -7,66 +10,65 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitNews = document.getElementById("submitNews");
     const newsTitle = document.getElementById("newsTitle");
     const newsContent = document.getElementById("newsContent");
-    const newsContainer = document.getElementById("newsContainer");
     const submitComment = document.getElementById("submitComment");
     const commentInput = document.getElementById("commentInput");
     const commentList = document.getElementById("commentList");
 
     let currentUser = null;
     let comments = [];
+    let allNews = [];
 
-    // تسجيل الدخول
+    async function fetchNews() {
+        let tickerText = "";
+        allNews = [];
+
+        try {
+            const response = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://www.espn.com/espn/rss/news");
+            const data = await response.json();
+
+            data.items.slice(0, 5).forEach(news => {
+                allNews.push({
+                    title: news.title,
+                    description: news.description.substring(0, 100),
+                    category: "football"
+                });
+                tickerText += ` 🔥 ${news.title} |`;
+            });
+
+        } catch (error) {
+            console.error("فشل تحميل الأخبار:", error);
+        }
+
+        newsTicker.innerHTML = tickerText;
+        displayNews("all");
+    }
+
+    function displayNews(category) {
+        newsContainer.innerHTML = "";
+        const filteredNews = category === "all" ? allNews : allNews.filter(news => news.category === category);
+
+        filteredNews.forEach(news => {
+            newsContainer.innerHTML += `<div class="card p-2 m-2"><h5>${news.title}</h5><p>${news.description}</p></div>`;
+        });
+    }
+
+    categoryFilter.addEventListener("change", function () {
+        displayNews(this.value);
+    });
+
     submitLogin.addEventListener("click", function () {
         currentUser = usernameInput.value;
-        if (currentUser) {
-            localStorage.setItem("currentUser", currentUser);
-            loginBtn.classList.add("d-none");
-            logoutBtn.classList.remove("d-none");
-            addNewsBtn.classList.remove("d-none");
-            new bootstrap.Modal(document.getElementById("loginModal")).hide();
-        }
-    });
-
-    // تسجيل الخروج
-    logoutBtn.addEventListener("click", function () {
-        localStorage.removeItem("currentUser");
-        currentUser = null;
-        loginBtn.classList.remove("d-none");
-        logoutBtn.classList.add("d-none");
-        addNewsBtn.classList.add("d-none");
-    });
-
-    // تحميل بيانات المستخدم عند فتح الصفحة
-    if (localStorage.getItem("currentUser")) {
-        currentUser = localStorage.getItem("currentUser");
+        localStorage.setItem("currentUser", currentUser);
         loginBtn.classList.add("d-none");
         logoutBtn.classList.remove("d-none");
         addNewsBtn.classList.remove("d-none");
-    }
-
-    // إضافة الأخبار المحلية
-    submitNews.addEventListener("click", function () {
-        if (!currentUser) return alert("يجب تسجيل الدخول أولًا!");
-        const newsHTML = `
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${newsTitle.value}</h5>
-                        <p class="card-text">${newsContent.value}</p>
-                        <p class="text-muted">بقلم: ${currentUser}</p>
-                    </div>
-                </div>
-            </div>`;
-        newsContainer.innerHTML += newsHTML;
-        new bootstrap.Modal(document.getElementById("addNewsModal")).hide();
     });
 
-    // إضافة التعليقات
     submitComment.addEventListener("click", function () {
         if (!currentUser) return alert("يجب تسجيل الدخول أولًا!");
-        const commentHTML = `<li class="list-group-item"><strong>${currentUser}:</strong> ${commentInput.value}</li>`;
-        commentList.innerHTML += commentHTML;
-        comments.push({ user: currentUser, text: commentInput.value });
+        commentList.innerHTML += `<li>${currentUser}: ${commentInput.value}</li>`;
         commentInput.value = "";
     });
+
+    fetchNews();
 });
