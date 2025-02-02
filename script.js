@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitNews = document.getElementById("submitNews");
     const newsTitle = document.getElementById("newsTitle");
     const newsContent = document.getElementById("newsContent");
+    const newsImage = document.getElementById("newsImage");
     const submitComment = document.getElementById("submitComment");
     const commentInput = document.getElementById("commentInput");
     const commentList = document.getElementById("commentList");
 
     let currentUser = null;
-    let comments = [];
     let allNews = [];
 
     async function fetchNews() {
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 allNews.push({
                     title: news.title,
                     description: news.description.substring(0, 100),
+                    image: news.enclosure.link,
                     category: "football"
                 });
                 tickerText += ` 🔥 ${news.title} |`;
@@ -48,26 +49,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const filteredNews = category === "all" ? allNews : allNews.filter(news => news.category === category);
 
         filteredNews.forEach(news => {
-            newsContainer.innerHTML += `<div class="card p-2 m-2"><h5>${news.title}</h5><p>${news.description}</p></div>`;
+            newsContainer.innerHTML += `
+                <div class="col-md-4">
+                    <div class="card mb-3 shadow-sm">
+                        <img src="${news.image}" class="card-img-top" alt="صورة الخبر">
+                        <div class="card-body">
+                            <h5 class="card-title">${news.title}</h5>
+                            <p class="card-text">${news.description}</p>
+                        </div>
+                    </div>
+                </div>`;
         });
     }
 
     categoryFilter.addEventListener("change", function () {
         displayNews(this.value);
-    });
-
-    submitLogin.addEventListener("click", function () {
-        currentUser = usernameInput.value;
-        localStorage.setItem("currentUser", currentUser);
-        loginBtn.classList.add("d-none");
-        logoutBtn.classList.remove("d-none");
-        addNewsBtn.classList.remove("d-none");
-    });
-
-    submitComment.addEventListener("click", function () {
-        if (!currentUser) return alert("يجب تسجيل الدخول أولًا!");
-        commentList.innerHTML += `<li>${currentUser}: ${commentInput.value}</li>`;
-        commentInput.value = "";
     });
 
     fetchNews();
