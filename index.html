@@ -9,78 +9,44 @@
 </head>
 <body class="bg-light text-right" dir="rtl">
 
-    <!-- رأس الصفحة -->
+    <!-- 🔹 الشريط العلوي -->
     <header class="bg-primary text-white text-center p-3 shadow">
         <h1>أخبار الرياضة</h1>
-        <button id="loginBtn" class="btn btn-light">تسجيل الدخول</button>
-        <button id="logoutBtn" class="btn btn-danger d-none">تسجيل الخروج</button>
     </header>
 
-    <!-- شريط الأخبار المتحرك -->
-    <div class="ticker bg-dark text-white p-2">
-        <marquee id="newsTicker">جاري تحميل الأخبار...</marquee>
-    </div>
-
-    <!-- قائمة تصفية الأخبار -->
-    <div class="container mt-3">
-        <select id="categoryFilter" class="form-select">
-            <option value="all">جميع الأخبار</option>
-            <option value="football">كرة القدم</option>
-            <option value="basketball">كرة السلة</option>
-            <option value="tennis">التنس</option>
-        </select>
-    </div>
-
-    <!-- زر إضافة الأخبار المحلية -->
-    <div class="container text-center mt-3">
-        <button id="addNewsBtn" class="btn btn-success d-none">إضافة خبر محلي</button>
-    </div>
-
-    <!-- قسم الأخبار -->
-    <div class="container mt-4">
-        <div class="row" id="newsContainer"></div>
-    </div>
-
-    <!-- نافذة تسجيل الدخول -->
-    <div class="modal fade" id="loginModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">تسجيل الدخول</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" id="username" class="form-control" placeholder="اسم المستخدم">
-                    <button id="submitLogin" class="btn btn-primary mt-2">تسجيل الدخول</button>
-                </div>
+    <!-- 🔹 القائمة العلوية -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">الرئيسية</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">كرة القدم</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">كرة السلة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">التنس</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">رياضات ميكانيكية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">WWE</a></li>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- نافذة إضافة الأخبار المحلية -->
-    <div class="modal fade" id="addNewsModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">إضافة خبر جديد</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" id="newsTitle" class="form-control mb-2" placeholder="عنوان الخبر">
-                    <input type="text" id="newsImage" class="form-control mb-2" placeholder="رابط صورة الخبر">
-                    <textarea id="newsContent" class="form-control mb-2" placeholder="محتوى الخبر"></textarea>
-                    <button id="submitNews" class="btn btn-primary">نشر الخبر</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم التعليقات -->
+    <!-- 🔹 الأقسام الرئيسية -->
     <div class="container mt-4">
-        <h3>التعليقات</h3>
-        <input type="text" id="commentInput" class="form-control mb-2" placeholder="اكتب تعليقًا">
-        <button id="submitComment" class="btn btn-primary">إضافة تعليق</button>
-        <ul id="commentList" class="list-group mt-2"></ul>
+        <h2 class="text-primary">📰 الأخبار الرئيسية</h2>
+        <div class="row" id="mainNews"></div>
+    </div>
+
+    <div class="container mt-4">
+        <h2 class="text-success">🔥 الأخبار المهمة</h2>
+        <div class="row" id="importantNews"></div>
+    </div>
+
+    <div class="container mt-4">
+        <h2 class="text-danger">⭐ الأخبار المختارة</h2>
+        <div class="row" id="selectedNews"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
