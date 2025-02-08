@@ -1,16 +1,47 @@
+/* ✅ ضبط الألوان لتكون مطابقة لـ elsport.com */
 body {
-    font-family: 'Tajawal', sans-serif;
+    font-family: Tahoma, Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    direction: rtl;
+    text-align: right;
 }
 
-h1 {
+header {
+    background-color: #1a237e; /* لون أزرق داكن مشابه للموقع */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.navbar-nav .nav-link {
-    font-size: 18px;
-    padding: 10px;
+.navbar {
+    background-color: #003366; /* لون الأزرق الداكن في elsport.com */
 }
 
-.container h2 {
+.navbar-nav .nav-link {
+    color: white !important;
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+h2 {
+    color: #1a237e; /* لون العناوين الأزرق */
+    font-weight: bold;
     margin-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #003366; /* خط سفلي مشابه للموقع */
+}
+
+.card {
+    border: none;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #003366;
 }
