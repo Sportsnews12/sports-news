@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const importantNews = document.getElementById("importantNews");
     const selectedNews = document.getElementById("selectedNews");
 
-    // بيانات تجريبية للأخبار (يمكن استبدالها ببيانات من API لاحقًا)
     const newsData = [
         { title: "🚀 فوز برشلونة في الكلاسيكو!", category: "main", image: "https://via.placeholder.com/300" },
         { title: "🔥 محمد صلاح يسجل هدفًا رائعًا!", category: "important", image: "https://via.placeholder.com/300" },
