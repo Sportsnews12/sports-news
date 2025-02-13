@@ -1,47 +1,71 @@
-/* ✅ ضبط الألوان لتكون مطابقة لـ elsport.com */
+/* الأنماط العامة */
 body {
-    font-family: Tahoma, Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    direction: rtl;
-    text-align: right;
+  font-family: Tahoma, Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  direction: rtl;
+  text-align: right;
+  margin: 0;
+  padding: 0;
 }
 
+h1, h2 {
+  font-weight: bold;
+}
+
+/* رأس الصفحة */
 header {
-    background-color: #1a237e; /* لون أزرق داكن مشابه للموقع */
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+  background-color: #1a237e; /* أزرق داكن */
+  color: #fff;
+  padding: 15px;
+  text-align: center;
 }
 
+/* القائمة العلوية */
 .navbar {
-    background-color: #003366; /* لون الأزرق الداكن في elsport.com */
+  background-color: #003366; /* لون أزرق داكن مشابه */
 }
 
-.navbar-nav .nav-link {
-    color: white !important;
-    font-size: 18px;
-    padding: 10px;
-    font-weight: bold;
+.navbar-brand,
+.nav-link {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff !important;
 }
 
-h2 {
-    color: #1a237e; /* لون العناوين الأزرق */
-    font-weight: bold;
-    margin-top: 20px;
-    padding-bottom: 5px;
-    border-bottom: 3px solid #003366; /* خط سفلي مشابه للموقع */
+/* عناوين الأقسام */
+.section-title {
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #003366;
+  color: #1a237e;
 }
 
+/* البطاقات (الكارد) */
 .card {
-    border: none;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border: none;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .card-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #003366;
+  font-size: 20px;
+  font-weight: bold;
+  color: #003366;
+}
+
+/* صور الفيديو */
+#videoSection .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* التعليقات */
+#commentList li {
+  margin-top: 5px;
+}
+
+/* Toast - إشعارات الأخبار العاجلة */
+.toast-container {
+  z-index: 1055;
 }
